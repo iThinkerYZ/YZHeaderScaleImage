@@ -57,6 +57,8 @@
     
     if (!isAdd) { // 添加方法失败，表示原有方法存在，直接替换
         method_exchangeImplementations(origMethod, swizzleMethod);
+    }else {
+        class_replaceMethod(self, swizzleSelector, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
     }
 }
 
@@ -140,7 +142,7 @@ static CGFloat const oriImageH = 200;
 
 - (void)setYz_isInitial:(BOOL)yz_isInitial
 {
-    objc_setAssociatedObject(self, isInitialKey, @(yz_isInitial),OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, isInitialKey, @(yz_isInitial),OBJC_ASSOCIATION_ASSIGN);
 }
 
 // 属性： yz_headerImageViewHeight
